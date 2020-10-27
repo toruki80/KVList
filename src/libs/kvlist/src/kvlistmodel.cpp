@@ -211,7 +211,7 @@ QVector<KVListEntry*>::const_iterator KVListModel::end() const
     return entries_.end();
 }
 
-QStringList KVListModel::keyList() const
+QStringList KVListModel::keyNamesList() const
 {
     QStringList l;
     QHashIterator<int, QByteArray> i(roleNames_);
