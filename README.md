@@ -272,8 +272,8 @@ qmlRegisterSingletonType<Addressbook>("KVListExample", 1, 0, "Addressbook", [](Q
 Button {
   text: "accept"
   onClicked: {
-    model.ENTRY.applyShadowedChanges();
-    model.MODEL.serialize();
+    if(model.ENTRY.applyShadowedChanges() > 0)
+        model.MODEL.serialize();
   }
 }
 ```
