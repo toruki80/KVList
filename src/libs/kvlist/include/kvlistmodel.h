@@ -177,7 +177,7 @@ public:
     QVector<KVListEntry*>::const_iterator end() const;
 
     // this allows a simple printing of available role names from c++ and qml
-    Q_INVOKABLE QStringList keyList() const;
+    Q_INVOKABLE QStringList keyNamesList() const;
 
     // set a filename here... each 'serialize()' / 'deSerialize()' will use this file later as destination / source
     QString getSerializationFile() const { return serializationFile_; }
