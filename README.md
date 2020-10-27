@@ -22,7 +22,8 @@ target_link_libraries(${PROJECT_NAME} lib1 lib2 kvlist)
 # What's it all about?
 
 KVList gives you a generic key-value based list, that can be easily exposed to QML. 
-Here is a simple example how to implement one:
+Let's say we have a 'Addressbook' that holds a number of 'Person' objects. And each 'Person' has a couple of characteristics, such as 'age' and 'name'...
+Here is a simple example how to implement this...
 
 ```
 // person.h
