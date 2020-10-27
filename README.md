@@ -21,8 +21,11 @@ target_link_libraries(${PROJECT_NAME} lib1 lib2 kvlist)
 
 # What's it all about?
 
-KVList gives you a generic key-value based list, that can be easily exposed to QML. 
-Here is a simple example how to implement one:
+Let's say we have a 'Addressbook' that holds a number of 'Person' objects. And each 'Person' has a couple of characteristics, such as 'age' and 'name'...
+KVList gives you a generic key-value based list, that can be easily exposed to QML. And it reduces writing "boilerplate" code (such as Q_PROPERTY) a lot. And many other advantages I will explain later.. 
+
+
+Let's start simple.. Here is an example how to implement the above usecase with KVList...
 
 ```
 // person.h
@@ -32,9 +35,9 @@ Here is a simple example how to implement one:
 class Person : public KVListEntry
 {
     Q_OBJECT
-public:
+public:    
     enum EnKey { name, age, address };
-    Q_ENUM(EnKey)
+    Q_ENUM(EnKey) // the enum must be registered to Qt's meta object via Q_ENUM
 
     Person(const QString &name, int age, const QString &address)
     {
@@ -177,8 +180,10 @@ delegate: MouseArea {
 ```
 
 ### usecase: edit dialog
-A quite common usecase is an "edit-dialog" where the user can change properties. Usually you need to "shadow" the changes in case the user cancels the dialog later, or, in case user clicks 'save' apply them to our model.
-This usecase is really easy to implement with the KVLIST:
+A quite common usecase is an "edit-dialog" where the user can change properties. Usually you need to store the changes in case the user cancels the dialog later, or, in case user clicks 'save' apply them.
+This usecase is really easy to implement with the KVLIST.
+For every KEY exists a shodowed KEY 'KEY_shadowed': e.g. 'age' and 'age_shadowed'.
+There is a function to apply/reject the changes which can be called directly form qml. In case you need to validate the new VALUES first, you can override the apply function. 
 
 ```
 #qml
@@ -201,8 +206,9 @@ Button {
 ```
 
 
-### another KVListModel as value for a key
-Another common usecase is to have nested models. E.g. if the above person needs to store a model for its children.
+### nested models
+Another common usecase is to have nested models. 
+E.g. Addressbook' contains various 'Person', which again contain a model that contains 'Child'
 ```
 
 Person.h
@@ -271,3 +277,15 @@ Button {
   }
 }
 ```
+
+Sometimes is problematic to (de)serialize certain KEY/VALUES, e.g. you don't want the deserializer to overwrite your existing value... This can be achieved by appending '_noserialize' or '_ns' to the KEY name.
+```
+class Person : public KVListEntry
+{
+    Q_OBJECT
+public:    
+    enum EnKey { name, age, address, usagecount_ns };
+    Q_ENUM(EnKey)
+};
+```
+
