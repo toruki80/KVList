@@ -163,16 +163,6 @@ public:
     // appends value
     KVListModel &operator<<(KVListEntry *entry);
 
-    // QAbstractListModel impl
-    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    QHash<int, QByteArray> roleNames() const override;
-    virtual QVariant data(const QModelIndex &index, int role) const override;
-    virtual bool setData(const QModelIndex &index, const QVariant &value, int role) override;
-    virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
-
-    // static helper
-    static QHash<int, QByteArray> createHashFromEnum(const QMetaEnum &keysEnum);
-
     // add your callback/lambda here... will be notified when any entries role changes
     // returns a handle that can be used to remove the entry again
     CbHandle* onEntriesChanged(const QVector<int> &roles, EntryChangedCallbackFunc func);
@@ -187,7 +177,7 @@ public:
     QVector<KVListEntry*>::const_iterator end() const;
 
     // this allows a simple printing of available role names from c++ and qml
-    Q_INVOKABLE QStringList roleNamesList() const;
+    Q_INVOKABLE QStringList keyList() const;
 
     // set a filename here... each 'serialize()' / 'deSerialize()' will use this file later as destination / source
     QString getSerializationFile() const { return serializationFile_; }
@@ -228,6 +218,17 @@ public:
     // increase version in your class and implement 'lookupKey()' function
     int versionMajor_ = 1, versionMinor_  = 0;
 
+    // QAbstractListModel impl
+    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QHash<int, QByteArray> roleNames() const override;
+    virtual QVariant data(const QModelIndex &index, int role) const override;
+    virtual bool setData(const QModelIndex &index, const QVariant &value, int role) override;
+    virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
+
+    // static helper
+    static QHash<int, QByteArray> createHashFromEnum(const QMetaEnum &keysEnum);
+
+protected:
     friend class KVListEntry;
     // entry informs that keyed values have been changed
     virtual void entryHasChanged(const KVListEntry *entry, const QVector<int> &modifiedRoles);
