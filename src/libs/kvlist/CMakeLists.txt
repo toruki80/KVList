@@ -13,29 +13,29 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Xml REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Xml REQUIRED)
 
 add_library(kvlist SHARED
-    src/kvlist_global.h
-    src/kvlist_global.cpp
+    kvlist_global.h
+    kvlist_global.cpp
 
-    include/kvlistentry.h
-    src/kvlistentry.cpp
+    kvlistentry.h
+    kvlistentry.cpp
 
-    include/kvlistmodel.h
-    src/kvlistmodel.cpp
+    kvlistmodel.h
+    kvlistmodel.cpp
 
-    include/kvlistfilteredmodel.h
-    src/kvlistfilteredmodel.cpp
+    kvlistfilteredmodel.h
+    kvlistfilteredmodel.cpp
 
 
-    src/kvlistserializer.h
-    src/kvlistserializer.cpp
+    kvlistserializer.h
+    kvlistserializer.cpp
 
-    src/kvlistserializerxml.h
-    src/kvlistserializerxml.cpp
+    kvlistserializerxml.h
+    kvlistserializerxml.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Xml)
 target_compile_definitions(${PROJECT_NAME} PRIVATE KVLIST_LIBRARY)
-target_include_directories(${PROJECT_NAME} PUBLIC include src)
+target_include_directories(${PROJECT_NAME} PUBLIC .)
 
 install(TARGETS ${PROJECT_NAME}
     COMPONENT application
