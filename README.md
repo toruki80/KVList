@@ -1,4 +1,4 @@
-This is a addressbook-like example that shows how to use the KVList, a Qt based library
+This is an addressbook-like example that shows how to use the KVList, a Qt based library
 
 # Prerequisites 
 Qt & cmake
@@ -6,12 +6,12 @@ Qt & cmake
 # What's the purpose of KVList
 
 When it comes to presenting data with QML, Qt's model-view architecture is often being used to implement this.
-The KVList classes provide a abstraction on top of Qt's model classes that supply a simplification for many common usecases.
+The KVList classes provide an abstraction on top of Qt's model classes that supply simplification for many common usecases.
 
 # Where can I find the sourcecode for KVList / how can I use it
-it can be found [here:](https://github.com/toruki80/KVList/tree/main/src/libs/kvlist)
+It can be found [here:](https://github.com/toruki80/KVList/tree/main/src/libs/kvlist)
 
-Using it is as simple as copying the folder into your cmake-based project and adding it as subproject. 
+Using it is as simple as copying the folder into your cmake-based project and adding it as a subproject. 
 ```
 ...
 add_subdirectory(path/to/kvlist)
@@ -21,7 +21,7 @@ target_link_libraries(${PROJECT_NAME} lib1 lib2 kvlist)
 
 # What's it all about?
 
-Let's say we have a 'Addressbook' that holds a number of 'Person' objects. And each 'Person' has a couple of characteristics, such as 'age' and 'name'...
+Let's say we have an 'Addressbook' that holds a number of 'Person' objects. And each 'Person' has a couple of characteristics, such as 'age' and 'name'...
 KVList gives you a generic key-value based list, that can be easily exposed to QML. And it reduces writing "boilerplate" code (such as Q_PROPERTY) a lot. And many other advantages I will explain later.. 
 
 
@@ -208,7 +208,7 @@ Button {
 
 ### nested models
 Another common usecase is to have nested models. 
-E.g. Addressbook' contains various 'Person', which again contain a model that contains 'Child'
+E.g. an 'Addressbook' contains various 'Person', which again contain a model that contains 'Child'
 ```
 
 Person.h
@@ -278,7 +278,7 @@ Button {
 }
 ```
 
-Sometimes is problematic to (de)serialize certain KEY/VALUES, e.g. you don't want the deserializer to overwrite your existing value... This can be achieved by appending '_noserialize' or '_ns' to the KEY name.
+Sometimes it is problematic to (de)serialize certain KEY/VALUES, e.g. you don't want the deserializer to overwrite your existing value... This can be achieved by appending '_noserialize' or '_ns' to the KEY name.
 ```
 class Person : public KVListEntry
 {
